@@ -1,4 +1,4 @@
-package com.example.myfrags;
+package com.example.MyFragsFinal;
 
 import androidx.fragment.app.Fragment;
 
@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import com.example.myfrags.*;
 
 
 public class Fragment1 extends Fragment {

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MyFrags</string>
+    <string name="app_name">MyFragsFinal</string>
 
     <!-- Napisy na przyciskach -->
     <string name="button_shuffle">Shuffle</string>

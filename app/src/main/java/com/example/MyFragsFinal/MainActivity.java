@@ -1,5 +1,5 @@
 
-package com.example.myfrags;
+package com.example.MyFragsFinal;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
@@ -19,14 +19,40 @@ public class MainActivity extends FragmentActivity implements Fragment1.OnButton
 
     private int[] frames;
     private boolean hiden;
+    private int count_clockiwise =0;
+
+    @Override
+    public void onBackPressed() {
+
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+
+        if (getSupportFragmentManager().getBackStackEntryCount() == 1){
+            finish();
+        }
+        else if ( getSupportFragmentManager().getBackStackEntryAt(count-1).getName().equals("clockwise")) {
+            super.onBackPressed();
+            int t = frames[3];
+            frames[3] = frames[2];
+            frames[2] = frames[1];
+            frames[1] = frames[0];
+            frames[0] = t;
+
+            //getSupportFragmentManager().popBackStack();
+
+        }
+
+        else {
+            getSupportFragmentManager().popBackStack();
+        }
+
+    }
     @Override
     public void onButtonClickShuffle() {
 
         List<Integer> list = new ArrayList<Integer>(Arrays.asList(frames[0], frames[1], frames[2], frames[3]));
         Collections.shuffle(list);
         for (int i = 0; i < 4; i++) frames[i] = list.get(i).intValue();
-
-        newFragments();
+        newFragments("shuffle");
     }
 
     @Override
@@ -38,7 +64,7 @@ public class MainActivity extends FragmentActivity implements Fragment1.OnButton
         frames[2] = frames[3];
         frames[3] = t;
 
-        newFragments();
+        newFragments("clockwise");
     }
     @Override
     public void onButtonClickHide() {
@@ -55,7 +81,7 @@ public class MainActivity extends FragmentActivity implements Fragment1.OnButton
             transaction.hide(f);
 
 
-            transaction.addToBackStack(null);
+            transaction.addToBackStack("hide");
             transaction.commit();
         }
 
@@ -75,12 +101,12 @@ public class MainActivity extends FragmentActivity implements Fragment1.OnButton
             transaction.show(f);
         }
 
-        transaction.addToBackStack(null);
+        transaction.addToBackStack("restore");
         transaction.commit();
 
         hiden = false;
     }
-    private void newFragments() {
+    private void newFragments(String c) {
 
         Fragment[] newFragments = new Fragment[]{new Fragment1(), new Fragment2(), new Fragment3(), new Fragment4()};
 
@@ -92,7 +118,7 @@ public class MainActivity extends FragmentActivity implements Fragment1.OnButton
             if (hiden && !(newFragments[i] instanceof Fragment1)) transaction.hide(newFragments[i]);
         }
 
-        transaction.addToBackStack(null);
+        transaction.addToBackStack(c);
         transaction.commit();
 
     }

@@ -1,4 +1,4 @@
-package com.example.myfrags;
+package com.example.MyFragsFinal;
 
 import org.junit.Test;
 
